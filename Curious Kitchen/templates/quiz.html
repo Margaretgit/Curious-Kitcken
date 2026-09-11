@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Kitchen Quiz{% endblock %}
+{% block content %}
+<section class="page-head">
+    <p class="eyebrow">TEST YOUR KNOWLEDGE</p>
+    <h1>Kitchen Quiz 🧠</h1>
+    <p>Answer the questions and see how much you've learned.</p>
+</section>
+
+<form class="quiz-form" method="POST">
+{% for item in quiz %}
+<fieldset class="panel">
+    <legend>{{ loop.index }}. {{ item.q }}</legend>
+    {% for option in item.options %}
+    <label class="quiz-option">
+        <input type="radio" name="q{{ loop.index0 }}" value="{{ option }}" required>
+        {{ option }}
+    </label>
+    {% endfor %}
+</fieldset>
+{% endfor %}
+<button class="primary-btn" type="submit">Check My Score 🏆</button>
+</form>
+
+{% if score is not none %}
+<section class="score">
+    <h2>🎉 You scored {{ score }}/{{ quiz|length }}</h2>
+    <p>{% if score == quiz|length %}Excellent! Kitchen scientist! 👩🏽‍🔬{% elif score >= 3 %}Great job! Keep learning.{% else %}Good start! Try again and improve your score.{% endif %}</p>
+</section>
+{% endif %}
+{% endblock %}

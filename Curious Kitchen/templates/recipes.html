@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Recipes | Curious Kitchen{% endblock %}
+{% block content %}
+<section class="page-head">
+    <p class="eyebrow">RECIPE EXPLORER</p>
+    <h1>Simple recipes to try 👩🏽‍🍳</h1>
+</section>
+<section class="recipe-grid">
+{% for recipe in recipes %}
+<article class="recipe-card">
+    <div class="recipe-emoji">{{ recipe.emoji }}</div>
+    <div>
+        <h2>{{ recipe.name }}</h2>
+        <p>⏱️ {{ recipe.time }} &nbsp; • &nbsp; ⭐ {{ recipe.difficulty }}</p>
+        <p>{{ recipe.ingredients|join(", ")|title }}</p>
+        <a class="secondary-btn" href="{{ url_for('recipe', recipe_id=recipe.id) }}">See Steps →</a>
+    </div>
+</article>
+{% endfor %}
+</section>
+{% endblock %}
